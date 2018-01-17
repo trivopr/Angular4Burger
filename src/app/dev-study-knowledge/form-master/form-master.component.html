@@ -1,0 +1,71 @@
+<h2>TEMPLATE DRIVEN FORM</h2>
+
+<form (ngSubmit)="onSubmit()" #elRef = "ngForm">
+    <div ngModelGroup="userData" #userGroup="ngModelGroup">
+        <div class="form-group">
+          <label for="username">User Name:</label>
+          <input type="text" class="form-control" id="username" placeholder="User name" name="username" required ngModel>
+        </div>
+    
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email address {{hihi.touched}}</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" name="email" required #hihi="ngModel" ngModel>
+          <span *ngIf="!hihi.valid && hihi.touched">
+            You must input Email valid {{hihi.valid}}
+          </span>
+        </div>
+      </div>
+      <p *ngIf="!userGroup.valid">User Group must be Valid !! {{userGroup.valid}}</p>
+    
+
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password" ngModel>
+  </div>
+
+
+  <div class="form-group">
+    <label for="secretQuestion">Secret question.</label>
+    <select class="form-control" id="secretQuestion" [ngModel]="defaultSecret" name="secretQuestion">
+      <option value="1">What do you like ?</option>
+      <option value="2">How old are you ?</option>
+      <option value="3">How many people in your class ?</option>
+      <option value="4">Do you like dog ?</option>
+      <option value="5">What's up ??</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea name="description" id="description" class="form-control" [(ngModel)]="desContent"></textarea>
+  </div>
+
+  <p>Your Description is: {{desContent}}</p>
+
+  <p>Gender</p>
+  <div class="raido">
+    <label *ngFor="let gender of genders">
+        <input type="radio" [value]="gender" class="form-control" name="gender" ngModel>{{gender}} &nbsp;
+    </label>
+    
+  </div>
+
+  <div class="form-group">
+    <label class="form-check-label">
+      <input type="checkbox" class="form-controls" name="policy" ngModel> Check me out
+    </label>
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled] = "!elRef.valid" >Submit</button>
+</form>
+
+<div *ngIf="submitted">
+  <h3>Your Input Data below:</h3>
+  
+  <p> Username: {{formData.username}}</p>
+  <p> Email: {{formData.email}}</p>
+  <p> password: {{formData.password}}</p>
+  <p> Secret: {{formData.secretQuestion}}</p>
+  <p> Description: {{formData.description}}</p>
+  <p> gender: {{formData.gender}}</p>
+  <p> policy: {{formData.policy}}</p>
+</div>

@@ -1,0 +1,63 @@
+<hr />
+<h3>REACTIVE FORM</h3>
+
+<form class="form-horizontal" [formGroup]="loginForm" (ngSubmit)="onSubmit()" >
+  <div class="form-group">
+    <label for="username" class="col-sm-2 control-label">Username</label>
+    <div class="col-sm-10">
+      <input formControlName="username" type="text" class="form-control" id="username" placeholder="username">
+    </div>
+    <span class="help-block" *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched">
+      <span *ngIf="loginForm.get('username').errors['nameIsForbidden']">This username is not Valid</span>
+      <span *ngIf="loginForm.get('username').errors['required']">This username must be required</span>
+    </span>
+  </div>
+
+  <div formGroupName="userData">
+    <div class="form-group">
+      <label for="email" class="col-sm-2 control-label">Email</label>
+      <div class="col-sm-10">
+        <input formControlName="email" type="email" class="form-control" id="email" placeholder="Email">
+      </div>
+      <span class="help-block" *ngIf="!loginForm.get('userData.email').valid && loginForm.get('userData.email').touched">You must enter correct Email</span>
+    </div>
+    
+    <div class="form-group">
+      <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+      <div class="col-sm-10">
+        <input formControlName="password" type="password" class="form-control" id="inputPassword3" placeholder="Password">
+      </div>
+    </div>    
+  </div>
+
+  <p>Gender</p>
+  <div class="radio">
+    <label *ngFor="let gender of genders">
+        <input type="radio" [value]="gender" class="form-control" formControlName="gender">{{gender}} &nbsp;
+    </label>
+  </div>
+
+  <div class="form-group" formArrayName="hobies">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="button" class="btn btn-primary" (click)="onAddHobies()">+</button>
+      
+      <input type="text" class="btn btn-primary" *ngFor="let hobie of loginForm.get('hobies').controls, let i = index" [formControlName]="i"> &nbsp;
+    
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <div class="checkbox">
+        <label>
+          <input formControlName="policy" type="checkbox"> Remember me
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-info">Sign in</button>
+    </div>
+  </div>
+</form>
